@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+  
+  
+<style>
+   .header {
+       position: fixed;
+       top: 0;
+       z-index: 10000;
+       background-color: #aaa;
+       font-size: 20px;
+       width: 100%;
+       padding: 20px;
+       text-align: center;
+       left: 0;
+       margin: 0;
+   }
+   h1 {
+       padding-top: 100px;
+   }
+
+</style>
+  
+  
+  
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Samsung Expo</title>
@@ -8,12 +31,13 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
+	<script src="pleaserotate.js"></script>
     <script>
     var unityInstance = UnityLoader.instantiate("unityContainer", "Build/SamsungWebgl.json", {onProgress: UnityProgress});
-
 	window.devicePixelRatio = 1;
 	window.addEventListener("resize", resizeCanvas);
     window.addEventListener("load", resizeCanvas);
+	window.addEventListener("load", isMobile);
     
     if ("onpointerlockchange" in document) {
 		document.addEventListener('pointerlockchange', lockChangeAlert, false);
@@ -39,23 +63,50 @@
 		canvas.width  = window.innerWidth;
 		canvas.height = window.innerHeight;
 	}
-	  
-if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-	function fullscreen() 
-	{
-		unityInstance.SetFullscreen(1);
-		screen.orientation.lock('landscape-primary');
+	
+	function isMobile() {
+		try {
+			if(/Android|webOS|iPhone|iPad|iPod|pocket|psp|kindle|avantgo|blazer|midori|Tablet|Palm|maemo|plucker|phone|BlackBerry|symbian|IEMobile|mobile|ZuneWP7|Windows Phone|Opera Mini/i.test(navigator.userAgent)) {
+				lock("landscape-primary")
+				};
+			return false;
+	} 
+	catch(e){ console.log("Error in isMobile"); return false; }
 	}
-}else{
-	function fullscreen() 
+	
+	function lock (orientation) 
 	{
-		unityInstance.SetFullscreen(1);
+		if (document.documentElement.requestFullscreen) 
+		{
+			document.documentElement.requestFullscreen();
+		}	 
+		else if (document.documentElement.mozRequestFullScreen) 
+		{
+			document.documentElement.mozRequestFullScreen();
+		}
+		else if (document.documentElement.webkitRequestFullscreen) 
+		{
+			document.documentElement.webkitRequestFullscreen();
+		} 
+		else if (document.documentElement.msRequestFullscreen) 
+		{
+			document.documentElement.msRequestFullscreen();
+		}
+		
+		alert("is mobile! ");
+	
+		screen.orientation.lock(orientation);
 	}
-}
+
+	var PleaseRotateOptions = {
+      onlyMobile: false
+   };
 	</script>
+  
   </head>
   <body style="margin:0; overflow:hidden;">
 	  <div class="webgl-content" style="width: 100%; height: 100%;">
       <div id="unityContainer"></div>
+	  
   </body>
 </html>
