@@ -2,7 +2,6 @@
 <html lang="en-us">
   <head>
   
-  
 <style>
    .header {
        position: fixed;
@@ -21,9 +20,6 @@
    }
 
 </style>
-  
-  
-  
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Samsung Expo</title>
@@ -37,7 +33,6 @@
 	window.devicePixelRatio = 1;
 	window.addEventListener("resize", resizeCanvas);
     window.addEventListener("load", resizeCanvas);
-	window.addEventListener("load", isMobile);
     
     if ("onpointerlockchange" in document) {
 		document.addEventListener('pointerlockchange', lockChangeAlert, false);
@@ -62,40 +57,6 @@
 		var canvas = unityInstance.Module.canvas;
 		canvas.width  = window.innerWidth;
 		canvas.height = window.innerHeight;
-	}
-	
-	function isMobile() {
-		try {
-			if(/Android|webOS|iPhone|iPad|iPod|pocket|psp|kindle|avantgo|blazer|midori|Tablet|Palm|maemo|plucker|phone|BlackBerry|symbian|IEMobile|mobile|ZuneWP7|Windows Phone|Opera Mini/i.test(navigator.userAgent)) {
-				lock("landscape-primary")
-				};
-			return false;
-	} 
-	catch(e){ console.log("Error in isMobile"); return false; }
-	}
-	
-	function lock (orientation) 
-	{
-		if (document.documentElement.requestFullscreen) 
-		{
-			document.documentElement.requestFullscreen();
-		}	 
-		else if (document.documentElement.mozRequestFullScreen) 
-		{
-			document.documentElement.mozRequestFullScreen();
-		}
-		else if (document.documentElement.webkitRequestFullscreen) 
-		{
-			document.documentElement.webkitRequestFullscreen();
-		} 
-		else if (document.documentElement.msRequestFullscreen) 
-		{
-			document.documentElement.msRequestFullscreen();
-		}
-		
-		alert("is mobile! ");
-	
-		screen.orientation.lock(orientation);
 	}
 
 	var PleaseRotateOptions = {
