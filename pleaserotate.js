@@ -176,7 +176,7 @@
     }
 
     function isPortrait(){
-        return ( window.innerWidth < window.innerHeight);
+         return (document.documentElement.clientWidth < document.documentElement.clientHeight);
     }
 
     function checkOrientationChange(){
